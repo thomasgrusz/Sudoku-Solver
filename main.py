@@ -27,7 +27,8 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
 
 
-# Convert string representation of puzzle into dictionary
+# Convert input from website-form input into a string representation and
+# subsequently of puzzle into dictionary
 def grid_values(form_puzzle_input):
     puzzle_string = ''
     for field in form_puzzle_input:
@@ -35,7 +36,6 @@ def grid_values(form_puzzle_input):
             puzzle_string += field
         else:
             puzzle_string += '.'
-
     values = []
     all_digits = '123456789'
     for c in puzzle_string:
@@ -45,16 +45,6 @@ def grid_values(form_puzzle_input):
             values.append(c)
     assert len(values) == 81
     return dict(zip(boxes, values))
-
-
-# # Display the values as a 2-D grid. Input: sudoku in dictionary form
-# def display(values):
-#     width = 1 + max(len(values[s]) for s in boxes)
-#     line = '+'.join(['-' * (width * 3)] * 3)
-#     for r in rows:
-#         print(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols))
-#         if r in 'CF':
-#             print(line)
 
 
 # # --- Elimination strategy ---
@@ -145,30 +135,24 @@ class SolveHandler(Handler):
     # puzzle_1 = grid_values(puzzle_1)
     # display(search(puzzle_1))
 
+    # Display the values as a 2-D grid. Input: sudoku in dictionary form
+    def display(self, values):
+        width = 1 + max(len(values[s]) for s in boxes)
+        line = ('+'.join(['-' * (width * 3)] * 3)) + '\n'
+        for r in rows:
+            # print(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols))
+            self.write(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols) +'\n')
+            if r in 'CF':
+                self.write(line)
+
     def post(self):
         puzzle = self.request.get_all("field")
         diag = self.request.get("diag")
 
         self.response.headers['Content-Type'] = 'text/plain'
-
         puzzle_grid_values = grid_values(puzzle)
-        self.write('Grid Values:')
-        self.write('\n')
-        self.write('\n')
-        self.write(puzzle_grid_values)
-        self.write('\n')
-        self.write('\n')
-        self.write('\n')
 
-        i = 0
-        for box in boxes:
-            self.write(box)
-            self.write(': ')
-            self.write(puzzle_grid_values[box])
-            self.write(' ')
-            i += 1
-            if i % 9 == 0:
-                self.write('\n')
+        self.display(puzzle_grid_values)
 
 
 app = webapp2.WSGIApplication([
