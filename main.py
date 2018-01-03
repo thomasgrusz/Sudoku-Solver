@@ -47,66 +47,66 @@ def grid_values(form_puzzle_input):
     return dict(zip(boxes, values))
 
 
-# # --- Elimination strategy ---
-# # The eliminate() function will eliminate search boxes with a single digit and
-# # eliminate that digit from its peers.
-# def eliminate(values):
-#     for box in values.keys():
-#         if len(values[box]) == 1:
-#             elimination_value = values[box]
-#             for peer in peers[box]:
-#                 values[peer] = values[peer].replace(elimination_value, '')
-#     return values
+# --- Elimination strategy ---
+# The eliminate() function will eliminate search boxes with a single digit and
+# eliminate that digit from its peers.
+def eliminate(values):
+    for box in values.keys():
+        if len(values[box]) == 1:
+            elimination_value = values[box]
+            for peer in peers[box]:
+                values[peer] = values[peer].replace(elimination_value, '')
+    return values
 
 
-# # --- Only choice strategy ---
-# # The function will go through all the units, and if there is a unit with a
-# # digit that only fits in one possible box, it will assign that digit to that
-# # box.
-# def only_choice(values):
-#     for unit in unitlist:
-#         for digit in '123456789':
-#             dplaces = [box for box in unit if digit in values[box]]
-#             if len(dplaces) == 1:
-#                 values[dplaces[0]] = digit
-#     return values
+# --- Only choice strategy ---
+# The function will go through all the units, and if there is a unit with a
+# digit that only fits in one possible box, it will assign that digit to that
+# box.
+def only_choice(values):
+    for unit in unitlist:
+        for digit in '123456789':
+            dplaces = [box for box in unit if digit in values[box]]
+            if len(dplaces) == 1:
+                values[dplaces[0]] = digit
+    return values
 
 
-# # ---- Reduce puzzle by constraint propagation ----
-# # Repeatedly apply the eliminate() and only_choice() functions until the puzzle
-# # is solved. This is called 'Constraint Propagation'
-# def reduce_puzzle(values):
-#     stalled = False
-#     while not stalled:
-#         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
-#         eliminate(values)
-#         only_choice(values)
-#         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
-#         stalled = solved_values_before == solved_values_after
-#         # Sanity check for boxes with zero available values
-#         if len([box for box in values.keys() if len(values[box]) == 0]):
-#             return False
-#     return values
+# ---- Reduce puzzle by constraint propagation ----
+# Repeatedly apply the eliminate() and only_choice() functions until the puzzle
+# is solved. This is called 'Constraint Propagation'
+def reduce_puzzle(values):
+    stalled = False
+    while not stalled:
+        solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
+        eliminate(values)
+        only_choice(values)
+        solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
+        stalled = solved_values_before == solved_values_after
+        # Sanity check for boxes with zero available values
+        if len([box for box in values.keys() if len(values[box]) == 0]):
+            return False
+    return values
 
 # # "Using depth-first search and propagation, try all possible values."
 
 
-# def search(values):
-#     # First, reduce the puzzle using the previous function
-#     values = reduce_puzzle(values)
-#     if values is False:
-#         return False
-#     if all(len(values[s]) == 1 for s in boxes):
-#         return values  # Solved!
-#     # Choose one of the unfilled squares with the fewest possibilities
-#     n, s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
-#     # Now use recurrence to solve each one of the resulting sudokus
-#     for value in values[s]:
-#         new_sudoku = values.copy()
-#         new_sudoku[s] = value
-#         attempt = search(new_sudoku)
-#         if attempt:
-#             return attempt
+def search(values):
+    # First, reduce the puzzle using the previous function
+    values = reduce_puzzle(values)
+    if values is False:
+        return False
+    if all(len(values[s]) == 1 for s in boxes):
+        return values  # Solved!
+    # Choose one of the unfilled squares with the fewest possibilities
+    n, s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
+    # Now use recurrence to solve each one of the resulting sudokus
+    for value in values[s]:
+        new_sudoku = values.copy()
+        new_sudoku[s] = value
+        attempt = search(new_sudoku)
+        if attempt:
+            return attempt
 
 
 class Handler(webapp2.RequestHandler):
@@ -127,32 +127,39 @@ class MainPage(Handler):
 
 
 class SolveHandler(Handler):
-    # # Test code above
-    # puzzle_1 = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
-    # puzzle_2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-
-    # print('SUDOKU 1')
-    # puzzle_1 = grid_values(puzzle_1)
-    # display(search(puzzle_1))
-
     # Display the values as a 2-D grid. Input: sudoku in dictionary form
     def display(self, values):
         width = 1 + max(len(values[s]) for s in boxes)
         line = ('+'.join(['-' * (width * 3)] * 3)) + '\n'
         for r in rows:
             # print(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols))
-            self.write(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols) +'\n')
+            self.write(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols) + '\n')
             if r in 'CF':
                 self.write(line)
 
     def post(self):
-        puzzle = self.request.get_all("field")
+        self.response.headers['Content-Type'] = 'text/plain'
+
+        # Get website-form puzzle info as an array
+        puzzle_input = self.request.get_all("field")
         diag = self.request.get("diag")
 
-        self.response.headers['Content-Type'] = 'text/plain'
-        puzzle_grid_values = grid_values(puzzle)
+        # Convert puzzle array from website-form into dictionary
+        puzzle_grid_values = grid_values(puzzle_input)
 
-        self.display(puzzle_grid_values)
+        # Solve puzzle
+        puzzle = search(puzzle_grid_values)
+
+        # Display puzzle dictionary
+        self.display(puzzle)
+        self.write('\n')
+        self.write('\n')
+
+        if diag:
+            self.write('Include Diagonals: yes')
+        else:
+            self.write('Include Diagonals: no')
+        self.write(diag)
 
 
 app = webapp2.WSGIApplication([

@@ -157,19 +157,3 @@ puzzle_2 = grid_values(puzzle_2)
 display(search(puzzle_2))
 
 print()
-
-# ============================================================================
-
-# def my_display(values):
-#     print([values[r + c] for r in rows for c in cols])
-
-
-# print(puzzle_1)
-# print()
-# puzzle_1 = grid_values(puzzle_1)
-# print(puzzle_1)
-# print()
-# puzzle_1 = search(puzzle_1)
-# print(puzzle_1)
-# print()
-# my_display(puzzle_1)
