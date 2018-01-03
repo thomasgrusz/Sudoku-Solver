@@ -123,7 +123,7 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
     def get(self):
-        self.render("empty_puzzle.html")
+        self.render("mainContent.html")
 
 
 class SolveHandler(Handler):
@@ -150,16 +150,36 @@ class SolveHandler(Handler):
         # Solve puzzle
         puzzle = search(puzzle_grid_values)
 
+        # TODO: check if puzzle value is False and display error page
+
         # Display puzzle dictionary
         self.display(puzzle)
         self.write('\n')
         self.write('\n')
 
+        # Display 'diagonal' checkbox setting
         if diag:
             self.write('Include Diagonals: yes')
         else:
             self.write('Include Diagonals: no')
         self.write(diag)
+
+        # Prepare puzzle arrays for rendering
+        solved_puzzle_array = [puzzle[r + c] for r in rows for c in cols]
+        self.write('\n')
+        self.write('\n')
+        self.write('\n')
+        self.write(solved_puzzle_array)
+        self.write('\n')
+        self.write('\n')
+        self.write('\n')
+        original_puzzle_array = [field.encode('utf-8') if field else '.' for field in puzzle_input]
+        self.write(original_puzzle_array)
+        self.write('\n')
+        self.write('\n')
+        self.write('\n')
+        complementary_puzzle_array = ['.' if o == s else s for o, s in zip(original_puzzle_array, solved_puzzle_array)]
+        self.write(complementary_puzzle_array)
 
 
 app = webapp2.WSGIApplication([

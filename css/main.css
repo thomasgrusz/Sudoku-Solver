@@ -49,7 +49,7 @@ main > div {
 }
 #grid td {
     border: 1px solid;
-    padding:0;
+    padding: 0;
 }
 #grid td:first-child {
     border-left: 3px solid;
