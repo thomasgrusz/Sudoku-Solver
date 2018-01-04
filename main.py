@@ -123,7 +123,7 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
     def get(self):
-        self.render("mainContent.html")
+        self.render("start.html")
 
 
 class SolveHandler(Handler):
