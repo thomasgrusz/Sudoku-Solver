@@ -22,6 +22,12 @@ boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC', 'DEF', 'GHI') for cs in ('123', '456', '789')]
+
+# diagonal_units are only used, if the user clicked 'include diagonals' on the website
+# If diagnoal_units are used, then unitlist, unit and peers are assigned differently
+# in the function solve()
+diagonal_units = [[rows[i] + cols[i] for i in range(len(rows))], [rows[i] + cols[(len(rows) - 1) - i] for i in range(len(rows))]]
+
 unitlist = row_units + column_units + square_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
@@ -88,9 +94,8 @@ def reduce_puzzle(values):
             return False
     return values
 
-# # "Using depth-first search and propagation, try all possible values."
 
-
+# "Using depth-first search and propagation, try all possible values."
 def search(values):
     # First, reduce the puzzle using the previous function
     values = reduce_puzzle(values)
@@ -107,6 +112,23 @@ def search(values):
         attempt = search(new_sudoku)
         if attempt:
             return attempt
+
+
+# Solve the puzzle with input from web-site, called from SolveHandler()
+def solve(values, diag):
+    global unitlist
+    global units
+    global peers
+    # Encode the board depending on whether diagonals must be included or not
+    if diag == 'yes':
+        unitlist = row_units + column_units + square_units + diagonal_units
+        units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
+        peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
+
+    # Convert puzzle list from website-form into dictionary
+    puzzle_grid_values = grid_values(values)
+    solved_puzzle_dict = search(puzzle_grid_values)
+    return solved_puzzle_dict
 
 
 class Handler(webapp2.RequestHandler):
@@ -145,11 +167,8 @@ class SolveHandler(Handler):
         #  Get diagonal-checkbox info from website, 'yes' = include diagnoals, '' = normal Sudoku
         diag = self.request.get("diag")
 
-        # Convert puzzle list from website-form into dictionary
-        puzzle_grid_values = grid_values(puzzle_input)
-
         # Solve puzzle and return dictionary
-        solved_puzzle_dict = search(puzzle_grid_values)
+        solved_puzzle_dict = solve(puzzle_input, diag)
 
         # Check if there is a solution to the puzzle
         if solved_puzzle_dict is False:
