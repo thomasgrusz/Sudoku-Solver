@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <main>
+        <div id="puzzle">
+            <h2>Puzzle Solution</h2>
+
+            <form method="" action="/">
+                <table id="grid">
+                    {% for row in render_puzzle_list %}
+                        <tr>
+                        {% for field in row %}
+                            {% if field[1] == 'original' %}
+                                <td><input type="text" name="field" maxlength="1" value={{ field[0] }} disabled style="color: #000"></td>
+                            {% else %}
+                                <td><input type="text" name="field" maxlength="1" value={{ field[0] }} disabled style="color: #01BC02"></td>
+                            {% endif %}
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <input id="solve-btn" type="submit" value="Solve another Puzzle">
+            </form>
+        </div>
+    </main>
+
+{% endblock %}

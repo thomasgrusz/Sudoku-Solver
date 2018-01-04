@@ -132,54 +132,46 @@ class SolveHandler(Handler):
         width = 1 + max(len(values[s]) for s in boxes)
         line = ('+'.join(['-' * (width * 3)] * 3)) + '\n'
         for r in rows:
-            # print(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols))
             self.write(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols) + '\n')
             if r in 'CF':
                 self.write(line)
 
     def post(self):
-        self.response.headers['Content-Type'] = 'text/plain'
+        # Comment 'in' to display plain text instead of html on website
+        # self.response.headers['Content-Type'] = 'text/plain'
 
-        # Get website-form puzzle info as an array
+        # Get puzzle info from website as a unicoded list
         puzzle_input = self.request.get_all("field")
+        #  Get diagonal-checkbox info from website, 'yes' = include diagnoals, '' = normal Sudoku
         diag = self.request.get("diag")
 
-        # Convert puzzle array from website-form into dictionary
+        # Convert puzzle list from website-form into dictionary
         puzzle_grid_values = grid_values(puzzle_input)
 
-        # Solve puzzle
-        puzzle = search(puzzle_grid_values)
+        # Solve puzzle and return dictionary
+        solved_puzzle_dict = search(puzzle_grid_values)
 
-        # TODO: check if puzzle value is False and display error page
-
-        # Display puzzle dictionary
-        self.display(puzzle)
-        self.write('\n')
-        self.write('\n')
-
-        # Display 'diagonal' checkbox setting
-        if diag:
-            self.write('Include Diagonals: yes')
+        # Check if there is a solution to the puzzle
+        if solved_puzzle_dict is False:
+            self.render("error.html")
         else:
-            self.write('Include Diagonals: no')
-        self.write(diag)
+            # Convert puzzle dictionary from search() into list of strings
+            solved_puzzle_list = [solved_puzzle_dict[r + c] for r in rows for c in cols]
+            # Take puzzle input list from website and convert from unicode to utf-8
+            original_puzzle_list = [field.encode('utf-8') if field else '.' for field in puzzle_input]
+            # Combine original and solved puzzle lists to a 9x9 list for template rendering
+            render_puzzle_list = []
+            index_counter = 0
+            for tr in range(9):
+                render_puzzle_list.append([])
+                for td in range(9):
+                    if solved_puzzle_list[index_counter] == original_puzzle_list[index_counter]:
+                        render_puzzle_list[tr].append([solved_puzzle_list[index_counter], 'original'])
+                    else:
+                        render_puzzle_list[tr].append([solved_puzzle_list[index_counter], ''])
+                    index_counter += 1
 
-        # Prepare puzzle arrays for rendering
-        solved_puzzle_array = [puzzle[r + c] for r in rows for c in cols]
-        self.write('\n')
-        self.write('\n')
-        self.write('\n')
-        self.write(solved_puzzle_array)
-        self.write('\n')
-        self.write('\n')
-        self.write('\n')
-        original_puzzle_array = [field.encode('utf-8') if field else '.' for field in puzzle_input]
-        self.write(original_puzzle_array)
-        self.write('\n')
-        self.write('\n')
-        self.write('\n')
-        complementary_puzzle_array = ['.' if o == s else s for o, s in zip(original_puzzle_array, solved_puzzle_array)]
-        self.write(complementary_puzzle_array)
+            self.render("solution.html", render_puzzle_list=render_puzzle_list)
 
 
 app = webapp2.WSGIApplication([
