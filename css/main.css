@@ -101,7 +101,9 @@ footer {
 footer a {
     color: #333;
 }
-
+.social-icon {
+    padding: 0 5px 0 0;
+}
 
 
 /* Media Queries */
