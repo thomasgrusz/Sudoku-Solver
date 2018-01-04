@@ -35,3 +35,7 @@ other useful commands:
 list configurations:        gcloud config configurations list
 list projects:              gcloud projects list
 change default project:     gcloud config set project [YOUR_PROJECT_ID]
+
+
+This project is live at the following url:
+https://sudoku-solver-190907.appspot.com
