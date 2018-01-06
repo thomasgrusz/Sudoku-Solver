@@ -76,6 +76,7 @@ main > div {
     padding: 0;
     border: none;
     border-radius: 0;
+    opacity: 1;
     -webkit-appearance: none !important;
        -moz-appearance: none !important;
             appearance: none !important;
