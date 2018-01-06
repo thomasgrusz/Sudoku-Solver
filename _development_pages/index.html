@@ -10,6 +10,7 @@
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,100">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 
@@ -20,115 +21,114 @@
     <main>
         <div id="instructions">
             <h2>Instructions</h2>
-            <p>Enter the given digits (1-9) into the grid. Use the TAB key to move between cells and hit the <em>Solve</em> button or <em>Enter</em> to get the solution.</p>
+            <p>Enter the given digits (1-9) into the grid. Use the 'ZERO' key to move between cells and hit the <em>Solve</em> button or <em>Enter</em> to get the solution.</p>
         </div>
         <div id="puzzle">
             <h2>Puzzle</h2>
-
             <form method="post" action="/solve">
                 <table id="grid">
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)" autofocus></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1" autofocus></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                 </table>
                 <input id="submitted-diag" type="checkbox" name="diag" value="yes" style="display: none;">
-                <input id="solve-btn" type="submit" value="Solve">
+                <button id="solve-btn" type="submit">Solve</button>
             </form>
         </div>
         <div id="options">
@@ -140,25 +140,15 @@
             </form>
         </div>
     </main>
+
     <footer>
-        <p>By <a href="mailto:thomas.grusz@gmail.com" target="_blank">Thomas Grusz</a></p>
+        <p>By <a href="https://thomasgrusz.github.io/" target="_blank">Thomas Grusz</a></p>
+        <p>
+            <a href="https://github.com/thomasgrusz" target="_blank"><span class="fa fa-github fa-lg social-icon"></span>GitHub</a>
+        </p>
     </footer>
 </body>
 
-<script type="text/javascript">
-    // Only allow numbers from 1-9 (49-57) and the 'Enter' key to submit (13)
-    function checkInput(e) {
-        return (e.charCode >= 49 && e.charCode <= 57) || e.charCode == 13;
-    }
-
-    // Copy the state of the visible checkbox, outside the submitted form,
-    // onto a hidden checkbox within the form that will be submitted.
-    // This is a work around, due to imperfect layout design.
-    function copyOption() {
-        var status = document.getElementById('diag-checkbox').checked;
-        document.getElementById('submitted-diag').checked = status;
-        console.log(document.getElementById('submitted-diag').checked);
-    }
-</script>
+<script type="text/javascript" src="./js/all.js"></script>
 
 </html>
