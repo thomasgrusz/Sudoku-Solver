@@ -128,6 +128,7 @@ def solve(values, diag):
 
 class Handler(webapp2.RequestHandler):
 
+    # Define jinja2 template manager environment
     template_dir = os.path.join(os.path.dirname(__file__), 'templates')
     jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
@@ -148,11 +149,15 @@ class MainPage(Handler):
 
 
 class SolveHandler(Handler):
+
+    rows = 'ABCDEFGHI'
+    cols = '123456789'
+
     # Display the values as a 2-D grid. Input: sudoku in dictionary form
     def display(self, values):
         width = 1 + max(len(values[s]) for s in boxes)
         line = ('+'.join(['-' * (width * 3)] * 3)) + '\n'
-        for r in rows:
+        for r in self.rows:
             self.write(''.join(values[r + c].center(width, ' ') + ('|' if c in '36' else '') for c in cols) + '\n')
             if r in 'CF':
                 self.write(line)
@@ -174,7 +179,7 @@ class SolveHandler(Handler):
             self.render("error.html")
         else:
             # Convert puzzle dictionary from search() into list of strings
-            solved_puzzle_list = [solved_puzzle_dict[r + c] for r in rows for c in cols]
+            solved_puzzle_list = [solved_puzzle_dict[r + c] for r in self.rows for c in self.cols]
             # Take puzzle input list from website and convert from unicode to utf-8
             original_puzzle_list = [field.encode('utf-8') if field else '.' for field in puzzle_input]
             # Combine original and solved puzzle lists to a 9x9 list for template rendering
