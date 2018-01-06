@@ -13,20 +13,20 @@
             <form method="post" action="/solve">
                 <table id="grid">
                     <tr>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)" autofocus></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
-                        <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1" autofocus></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
+                        <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                     </tr>
                     {% for i in range(8) %}
                         <tr>
                         {% for i in range(9) %}
-                            <td><input type="text" name="field" maxlength="1" onkeypress="return checkInput(event)"></td>
+                            <td><input type="text" class="box" pattern="\d*" name="field" maxlength="1"></td>
                         {% endfor %}
                         </tr>
                     {% endfor %}
