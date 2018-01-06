@@ -38,6 +38,9 @@ main > div {
     line-height: 1.7em;
     word-spacing: 0.1em;
 }
+.italic {
+    font-style: italic;
+}
 
 
 
