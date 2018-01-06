@@ -7,7 +7,7 @@ rows = 'ABCDEFGHI'
 cols = '123456789'
 
 
-# cross() helper function creates all combinations of letters in 2 strings
+# cross() helper function creates all combinations of letters and numbers in 2 strings
 def cross(a, b):
     return [r + c for r in a for c in b]
 
@@ -125,6 +125,8 @@ def solve(values, diag):
     solved_puzzle_dict = search(puzzle_grid_values)
     return solved_puzzle_dict
 
+
+# ********** Handler Classes **********
 
 class Handler(webapp2.RequestHandler):
 
